@@ -1,18 +1,36 @@
 using Microsoft.AspNetCore.Identity;
+using System;
 using Microsoft.EntityFrameworkCore;
 using MoviePro.Data;
+using MoviePro.Models.Settings;
+using MoviePro.Services;
+using MoviePro.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = ConnectionService.GetConnectionString(builder.Configuration);
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
+builder.Services.AddTransient<SeedService>();
+
+builder.Services.AddHttpClient();//This is used by TMDBMovieService below
+
+builder.Services.AddScoped<IRemoteMovieService, TMDBMovieService>();
+
+builder.Services.AddScoped<IDataMappingService, TMDBMappingService>();
+
+builder.Services.AddSingleton<IImageService, BasicImageService>();
 
 var app = builder.Build();
 
