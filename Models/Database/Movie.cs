@@ -36,7 +36,7 @@ namespace MoviePro.Models.Database
         [NotMapped]
         [Display(Name = "Poster Image")]
         public IFormFile PosterFile { get; set; } // helps us communicate a custom user selection when 
-                                                  //they create a custom movie and stor a poster file - value comes from a form submission
+                                                  //they create a custom movie and store a poster file - value comes from a form submission
 
         [NotMapped]
         [Display(Name = "Backdrop Image")]

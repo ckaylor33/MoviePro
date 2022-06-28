@@ -1,11 +1,11 @@
-﻿using MoviePro.Services.Interfaces;
+﻿using MoviePro.Data;
+using MoviePro.Services.Interfaces;
 
 namespace MoviePro.Services
 {
     public class BasicImageService : IImageService
     {
         private readonly IHttpClientFactory _httpClient;
-        private readonly ApplicationDbContext _context;
 
         public BasicImageService(IHttpClientFactory httpClient)
         {
