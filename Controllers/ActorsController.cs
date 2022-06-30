@@ -16,7 +16,7 @@ namespace MoviePro.Controllers
             _mappingService = mappingService;
         }
 
-        public async Task<IActionResult> Detail(int id)
+        public async Task<IActionResult> Details(int id)
         {
             //get actor details through _tmdbMovieService
             var actor = await _tmdbMovieService.ActorDetailAsync(id);

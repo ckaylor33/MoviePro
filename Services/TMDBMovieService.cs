@@ -80,7 +80,7 @@ namespace MoviePro.Services
             {
                 using var responseStream = await response.Content.ReadAsStreamAsync();//read content of response
                 var dcjs = new DataContractJsonSerializer(typeof(MovieDetail));
-                movieDetail = (MovieDetail)dcjs.ReadObject(responseStream) as MovieDetail;//update value of movieSearch
+                movieDetail = dcjs.ReadObject(responseStream) as MovieDetail;//update value of movieSearch
 
             }
 

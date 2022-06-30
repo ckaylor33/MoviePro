@@ -139,7 +139,7 @@ namespace MoviePro.Services
         {
             var movieRating = MovieRating.NR;
             //goes through GB release dates
-            var certification = dates.results.FirstOrDefault(r => r.iso_3166_1 == "GB");
+            var certification = dates.results.FirstOrDefault(r => r.iso_3166_1 == "US");
 
             if (certification is not null)
             {
