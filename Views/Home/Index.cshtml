@@ -1,4 +1,6 @@
 ﻿@using MoviePro.ViewModels
+@using MoviePro.Models.Database
+@using MoviePro.Services.Interfaces
 
 @model LandingPageVM
 
@@ -12,36 +14,24 @@
             <span class="btn btn-lg btn-warning fw-bolder border-dark">UPCOMING</span>
         </div>
         <div class="row d-grid justify-content-evenly mx-0">
-            <div class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @{
-                        var classText = "active";
-                        for (var slide = 0; slide <= 3; slide++)
-                        {
-                            <div class="carousel-item @classText">
-                                @*Get component from bootstrap - CARD COMPONENT and iterate over it*@
-                                <div class="row">
-                                    @foreach (var movie in Model.Upcoming.results.Skip(slide * 4).Take(4))
-                                    {
-                                        <div class="col-md-3">
-                                            <div class="card" style="width: 18rem;">
-                                                <img src="@movie.poster_path" class="card-img-top" alt="...">
-                                                <div class="card-body d-grid">
-                                                    <h5 class="card-title clampTitle">@movie.title</h5>
-                                                    <p class="card-text clampOverview">@movie.overview</p>
-                                                    <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-warning fw-bold">
-                                                        Details
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
+
+            @*Get component from bootstrap - CARD COMPONENT and iterate over it*@
+            <div class="row">
+                @foreach (var movie in Model.Upcoming.results.Take(4))
+                {
+                    <div class="col-md-3">
+                        <div class="card" style="width: 18rem;">
+                            <img src="@movie.poster_path" class="card-img-top" alt="...">
+                            <div class="card-body d-grid">
+                                <h5 class="card-title clampTitle">@movie.title</h5>
+                                <p class="card-text clampOverview">@movie.overview</p>
+                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-warning fw-bold">
+                                    Details
+                                </a>
                             </div>
-                            classText = "";
-                        }
-                    }
-                </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </container>
@@ -54,36 +44,24 @@
             <span class="btn btn-lg btn-warning fw-bolder border-dark">NOW PLAYING</span>
         </div>
         <div class="row justify-content-evenly mx-0">
-            <div class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @{
-                        classText = "active";
-                        for (var slide = 0; slide <= 3; slide++)
-                        {
-                            <div class="carousel-item @classText">
-                                @*Get component from bootstrap - CARD COMPONENT and iterate over it*@
-                                <div class="row justify-content-between">
-                                    @foreach (var movie in Model.NowPlaying.results.Skip(slide * 4).Take(4))
-                                    {
-                                        <div class="col-sm-3 mx-auto">
-                                            <div class="card" style="width: 18rem;">
-                                                <img src="@movie.poster_path" class="card-img-top" alt="...">
-                                                <div class="card-body d-grid">
-                                                    <h5 class="card-title clampTitle">@movie.title</h5>
-                                                    <p class="card-text clampOverview">@movie.overview</p>
-                                                    <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-warning fw-bold">
-                                                        Details
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
+
+            @*Get component from bootstrap - CARD COMPONENT and iterate over it*@
+            <div class="row justify-content-between">
+                @foreach (var movie in Model.NowPlaying.results.Take(4))
+                {
+                    <div class="col-sm-3 mx-auto">
+                        <div class="card" style="width: 18rem;">
+                            <img src="@movie.poster_path" class="card-img-top" alt="...">
+                            <div class="card-body d-grid">
+                                <h5 class="card-title clampTitle">@movie.title</h5>
+                                <p class="card-text clampOverview">@movie.overview</p>
+                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-warning fw-bold">
+                                    Details
+                                </a>
                             </div>
-                            classText = "";
-                        }
-                    }
-                </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </container>
@@ -96,36 +74,23 @@
             <span class="btn btn-lg btn-warning fw-bolder border-dark">POPULAR</span>
         </div>
         <div class="row justify-content-evenly mx-0">
-            <div class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @{
-                        classText = "active";
-                        for (var slide = 0; slide <= 3; slide++)
-                        {
-                            <div class="carousel-item @classText">
-                                @*Get component from bootstrap - CARD COMPONENT and iterate over it*@
-                                <div class="row justify-content-between">
-                                    @foreach (var movie in Model.Popular.results.Skip(slide * 4).Take(4))
-                                    {
-                                        <div class="col-sm-3 mx-auto">
-                                            <div class="card" style="width: 18rem;">
-                                                <img src="@movie.poster_path" class="card-img-top" alt="...">
-                                                <div class="card-body d-grid">
-                                                    <h5 class="card-title clampTitle">@movie.title</h5>
-                                                    <p class="card-text clampOverview">@movie.overview</p>
-                                                    <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-warning fw-bold">
-                                                        Details
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
+            @*Get component from bootstrap - CARD COMPONENT and iterate over it*@
+            <div class="row justify-content-between">
+                @foreach (var movie in Model.Popular.results.Take(4))
+                {
+                    <div class="col-sm-3 mx-auto">
+                        <div class="card" style="width: 18rem;">
+                            <img src="@movie.poster_path" class="card-img-top" alt="...">
+                            <div class="card-body d-grid">
+                                <h5 class="card-title clampTitle">@movie.title</h5>
+                                <p class="card-text clampOverview">@movie.overview</p>
+                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-warning fw-bold">
+                                    Details
+                                </a>
                             </div>
-                            classText = "";
-                        }
-                    }
-                </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </container>
@@ -138,36 +103,24 @@
             <span class="btn btn-lg btn-warning fw-bolder border-dark">TOP RATED</span>
         </div>
         <div class="row justify-content-evenly mx-0">
-            <div class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @{
-                        classText = "active";
-                        for (var slide = 0; slide <= 3; slide++)
-                        {
-                            <div class="carousel-item @classText">
-                                @*Get component from bootstrap - CARD COMPONENT and iterate over it*@
-                                <div class="row justify-content-between">
-                                    @foreach (var movie in Model.TopRated.results.Skip(slide * 4).Take(4))
-                                    {
-                                        <div class="col-sm-3 mx-auto">
-                                            <div class="card" style="width: 18rem;">
-                                                <img src="@movie.poster_path" class="card-img-top" alt="...">
-                                                <div class="card-body d-grid">
-                                                    <h5 class="card-title clampTitle">@movie.title</h5>
-                                                    <p class="card-text clampOverview">@movie.overview</p>
-                                                    <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-warning fw-bold">
-                                                        Details
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
+
+            @*Get component from bootstrap - CARD COMPONENT and iterate over it*@
+            <div class="row justify-content-between">
+                @foreach (var movie in Model.TopRated.results.Take(4))
+                {
+                    <div class="col-sm-3 mx-auto">
+                        <div class="card" style="width: 18rem;">
+                            <img src="@movie.poster_path" class="card-img-top" alt="...">
+                            <div class="card-body d-grid">
+                                <h5 class="card-title clampTitle">@movie.title</h5>
+                                <p class="card-text clampOverview">@movie.overview</p>
+                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-warning fw-bold">
+                                    Details
+                                </a>
                             </div>
-                            classText = "";
-                        }
-                    }
-                </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </container>
