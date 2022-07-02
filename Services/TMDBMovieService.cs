@@ -30,7 +30,7 @@ namespace MoviePro.Services
 
             var queryParams = new Dictionary<string, string>()
             {
-                { "api_key", _appSettings.TmDbApiKey },
+                { "api_key", _appSettings.MovieProSettings.TmDbApiKey },
                 {"language", _appSettings.TMDBSettings.QueryOptions.Language }
             };
 
