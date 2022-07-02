@@ -40,7 +40,7 @@ namespace MoviePro.Controllers
             //I'll use it to find the record and add that record to the moviesInCollection
             moviesInCollection.ForEach(movieId => moviesInCollection.Add(_context.Movie.Find(movieId)));
 
-            //user can change movies that appeaer inside collection
+            //user can change movies that appear inside collection
             ViewData["IdsInCollection"] = new MultiSelectList(moviesInCollection, "Id", "Title");
 
             //goes out to Movie table and gathers records not trapped by entity framework

@@ -78,11 +78,9 @@ namespace MoviePro.Controllers
             //Grab from API or database?
             if (local)
             {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                 movie = await _context.Movie.Include(m => m.Cast)
                                             .Include(m => m.Crew)
                                             .FirstOrDefaultAsync(m => m.Id == id);
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
             }
             else
             {
