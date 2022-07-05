@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MoviePro.Data;
 using MoviePro.Enums;
 using MoviePro.Models;
+using MoviePro.Models.Settings;
 using MoviePro.Services.Interfaces;
 using MoviePro.ViewModels;
 using System.Diagnostics;
@@ -14,12 +16,14 @@ namespace MoviePro.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IRemoteMovieService _tmdbMovieService;
+        private readonly AppSettings _appSettings;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IRemoteMovieService tmdbMovieService)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IRemoteMovieService tmdbMovieService, IOptions<AppSettings> appSettings)
         {
             _logger = logger;
             _context = context;
             _tmdbMovieService = tmdbMovieService;
+            _appSettings = appSettings.Value;
         }
 
         public async Task<IActionResult> Index()
@@ -38,6 +42,10 @@ namespace MoviePro.Controllers
 
 
             };
+            ViewData["api_key"] = _appSettings.MovieProSettings.TmDbApiKey;
+            ViewData["Title"] = "Home";
+            ViewBag.MovieCount = count;
+
             return View(data);
         }
 
